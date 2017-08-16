@@ -38,15 +38,15 @@ original device worked at a high-level.
 
 The NES' PPU was laid out simply:
 
-    * In ROM:
-        * Pattern tables, containing 8x8 sprite image data
-        * Palettes, containing the color data to be applied to the patterns
-    * In PPU RAM
-        * A pair of name tables, indicating which pattern/palettes go where, 
-            aligned to 8x8 boundaries
+* In ROM:
+     * Pattern tables, containing 8x8 sprite image data
+     * Palettes, containing the color data to be applied to the patterns
+* In PPU RAM
+     * A pair of name tables, indicating which pattern/palettes go where, 
+         aligned to 8x8 boundaries
 
-        * A sprite table, specifying the positions of the sprites, their 
-            palettes, and their patterns
+     * A sprite table, specifying the positions of the sprites, their 
+         palettes, and their patterns
 
 The NES did rendering on a per-scanline basis, which meant that it could skip
 a lot of the memory needs required of a full framebuffer.
