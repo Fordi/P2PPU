@@ -1,6 +1,6 @@
 # P2PPU
 
-P2PPU is an NES-like Picture Processing Unit for the [Pixel 2.0](https://www.kickstarter.com/projects/rabidprototypes/pixel-20-the-arduino-compatible-smart-display), which is a neat little Cortex M0 / SSD1351 based Arduino-compatible board with OLED screen.
+P2PPU is an NES-like Picture Processing Unit for the [Pixel 2.0](https://www.kickstarter.com/projects/rabidprototypes/pixel-20-the-arduino-compatible-smart-display), which is a neat little Cortex M0 based Arduino-compatible board with OLED SSD1351 (16-bit, 128x128) screen.
 
 ### Note:
 
