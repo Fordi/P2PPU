@@ -5,7 +5,7 @@ P2PPU is an NES-like Picture Processing Unit for the Pixel 2.0
 ### Note:
 
 This is a low-priority work in progress, and I'm aware it's broken for the 
-moment (specifically, the tiles you ask for are not the tiles you get).  Any 
+moment (see [open issues](https://github.com/Fordi/P2PPU/issues)).  Any 
 pull requests you can offer will be looked at immediately.
 
 ## Breakdown
