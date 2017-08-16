@@ -46,23 +46,56 @@ Once you have that ready, you can run this boring sample program.
           ppu.setBackground(x, y, index, 0);
         }
       }
+      // Sprites 0..3 become a sign
+      
+      ppu.setSprite(0, 15, 0);
+      ppu.setSprite(1, 16, 0);
+      ppu.setSprite(2, 35, 0);
+      ppu.setSprite(3, 36, 0);
+      
     }
-    uint8_t bgX = 0;
+    uint8_t bgX = 63;
     uint8_t bgY = 63;
-    int vX = 1;
-    int vY = 1;
+    int vX = 3;
+    int vY = 5;
+
+    uint8_t sprX = 123;
+    uint8_t sprY = 60;
+    int svX = -2;
+    int svY = -1;
+
     void loop() {
-      ppu.render(0x0000);
       bgX += vX;
       bgY += vY;
-      if (bgX >= 127 || bgX <= 0) {
+      if (bgX > 127 || bgX < 0) {
         vX = -vX;
+        bgX += vX;
       }
-      if (bgY >= 127 || bgY <= 0) {
+      if (bgY > 127 || bgY < 0) {
         vY = -vY;
+        bgY += vY;
       }
       ppu.setBackgroundOffset(bgX, bgY);
+
+      sprX += svX;
+      sprY += svY;
+      if (sprX >= 247 || sprX <= 0) {
+        svX = -svX;
+        sprX+=svX;
+      }
+      if (sprY >= 247 || sprY <= 0) {
+        svY = -svY;
+        sprY+=svY;
+      }
+      ppu.setSpritePosition(0, sprX, sprY);
+      ppu.setSpritePosition(1, sprX+8, sprY);
+      ppu.setSpritePosition(2, sprX, sprY+8);
+      ppu.setSpritePosition(3, sprX+8, sprY+8);
+      
+      ppu.render(0x0000);
     }
+
+
 
 All it does is fill the screen with tiles, set up a sprite then scroll both
 around.  Fun stuff!
