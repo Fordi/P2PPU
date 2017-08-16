@@ -178,13 +178,14 @@ void P2PPU::render(uint16_t background) {
     // function requires (at least) 266 bytes RAM
     uint16_t scanline[P2PPU_WIDTH];
     uint16_t x, y;
-    uint8_t table_y, table_x;
-    uint8_t tile_y, tile_x;
+    uint16_t table_y, table_x;
+    uint16_t tile_y, tile_x;
     uint16_t tile;
     uint8_t palette;
     uint8_t index;
     uint8_t pi;
     uint16_t entry;
+    int p;
     // select chip
     *chip_select_port &= ~ chip_select_mask;
     
@@ -220,7 +221,7 @@ void P2PPU::render(uint16_t background) {
             if (tile != P2PPU_NO_TILE) {
               palette = entry & P2PPU_NO_PALETTE;
               if (palette != P2PPU_NO_PALETTE) {
-                if (tile_x & 1) {
+                if ((tile_x & 1) == 0) {
                     pi = (tiles[tile][tile_y][tile_x >> 1] & 0xF0) >> 4;
                 } else {
                     pi = tiles[tile][tile_y][tile_x >> 1] & 0xF;
@@ -231,33 +232,41 @@ void P2PPU::render(uint16_t background) {
         }
         // Gotta be a better way than to loop this every scanline...
         for (index = 0; index < P2PPU_SPRITES; index++) {
-            table_y = sprites[index][1] & 0xFF;
-            // Sprite is on this line vertically
-            if (table_y > y && table_y < y + 8) {
+          entry = sprites[index][0];
+          tile = (entry & 0xFFE0) >> 5;
+          if (tile != P2PPU_NO_TILE) {
+            palette = entry & P2PPU_NO_PALETTE;
+            if (palette != P2PPU_NO_PALETTE) {
+              table_y = sprites[index][1] & 0xFF;
+              // Sprite is on this line vertically
+              if (table_y > y && table_y < y + 8) {
                 table_x = sprites[index][1] >> 8;
                 // Sprite is on-screen horizontally
-                if (table_x > bg_offset_x && table_x < P2PPU_WIDTH + bg_offset_x) {
-                    tile_y = table_y - y;
-                    for (tile_x = 0; tile_x < 8; tile_x++) {
-                        entry = sprites[index][0];
-                        tile = (entry & 0xFFE0) >> 5;
-                        if (tile != P2PPU_NO_TILE) {
-                          palette = entry & P2PPU_NO_PALETTE;
-                          if (palette != P2PPU_NO_PALETTE) {
-                            if (tile_x & 1) {
-                                pi = (tiles[tile][tile_y][tile_x >> 1] & 0xF0) >> 4;
-                            } else {
-                                pi = tiles[tile][tile_y][tile_x >> 1] & 0xF;
-                            }
-                            // For sprites, palette index 0 is transparent.
-                            if (pi) {
-                                scanline[table_x + tile_x - bg_offset_x] = palettes[palette][pi];
-                            }
-                          }
+                if (table_x + 8 > bg_offset_x && table_x < P2PPU_WIDTH + bg_offset_x) {
+                  tile_y = table_y - y;
+                  
+                  for (tile_x = 0; tile_x < 8; tile_x++) {
+                    
+                    if ((tile_x & 1) == 0) {
+                        pi = (tiles[tile][tile_y][tile_x >> 1] & 0xF0) >> 4;
+                    } else {
+                        pi = tiles[tile][tile_y][tile_x >> 1] & 0xF;
+                    }
+                    // For sprites, palette index 0 is transparent.
+                    
+                    if (pi) {
+                        p = table_x + tile_x - bg_offset_x;
+                        if (p >= 0 && p <= 127) {
+                          scanline[p] = palettes[palette][pi];
                         }
                     }
+                    
+                  }
+
                 }
+              }
             }
+          }
         }
         // Flush the scanline
         for (x = 0; x <= P2PPU_WIDTH - 1; x++) {
