@@ -6,8 +6,8 @@ P2PPU is an NES-like Picture Processing Unit for the [Pixel 2.0](https://www.kic
 
 This is a low-priority work in progress, and I'm aware it's broken for the 
 moment (see [open issues](https://github.com/Fordi/P2PPU/issues)).  
-`[Bounty]`-tagged issues aren't meant to imply a reward, just that they're 
-free for anyone to fix.  Tickets for which I want to reserve responsibility
+`[Free-for-all]`-tagged issues are free for anyone to fix (though I'll probably 
+get to them).  Tickets for which I want to reserve responsibility
 will be marked `[Hands-off]`.  That said, all pull requests you can offer 
 will be looked at immediately, regardless of the ticket's tag.
 
