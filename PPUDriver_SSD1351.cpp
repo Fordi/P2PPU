@@ -26,7 +26,9 @@ void PPUDriver_SSD1351::writeData(uint8_t c) {
     SPI.transfer(c);
     *chip_select_port |= chip_select_mask;  
 }
-
+/**
+ * Prep the screen for accepting data
+ **/
 void PPUDriver_SSD1351::startData() {
   //Enable chip
   
@@ -45,12 +47,15 @@ void PPUDriver_SSD1351::startData() {
   *chip_select_port &= ~ chip_select_mask;
   *command_port |= command_mask;
 }
+/**
+ * Deselect the chip
+ **/
 void PPUDriver_SSD1351::endData() {
   *chip_select_port |= chip_select_mask;
 }
 
 /**
- * Initialize the SSD1351
+ * Initialize the screen
  **/
 void PPUDriver_SSD1351::begin(void) {
     // set pin directions
@@ -101,9 +106,9 @@ void PPUDriver_SSD1351::begin(void) {
     // Display orientation mapping
     // 7..6 = 11b (16 bit)
     // 5 = 1b (5/6/5)
-    // 4 = 0 (scan is 0 .. MUX(127))
+    // 4 = 0 (scan is 0 .. MUX(which is 127))
     // 3 is reserved
-    // 2 = 1 (color sequence is C/B/A)
+    // 2 = 1 (color sequence is R/G/B)
     // 1 = 0 (column address 0 is segment 0, default)
     // 0 = 0 (scanlines are horizontal)
     writeCommand(SSD1351_CMD_SETREMAP);
@@ -181,7 +186,10 @@ void PPUDriver_SSD1351::begin(void) {
 
 }
 
-
+/**
+ * Send data to screen
+ * See issue #11
+ **/
 void PPUDriver_SSD1351::transmit(uint16_t* c, uint16_t n) {
   // TODO: Implement blocking DMA if available.
   for (uint16_t i = 0; i < n; i++) {
