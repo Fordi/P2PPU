@@ -4,8 +4,9 @@ P2PPU is an NES-like Picture Processing Unit for the [Pixel 2.0](https://www.kic
 
 ### Note:
 
-This is a low-priority work in progress, and I'm aware it's broken for the 
-moment (see [open issues](https://github.com/Fordi/P2PPU/issues)).  
+This is a low-priority work in progress, and I'm aware it's slow for the 
+moment (but no longer broken!  yay! see 
+[open issues](https://github.com/Fordi/P2PPU/issues)).  
 `[Free-for-all]`-tagged issues are free for anyone to fix (though I'll probably 
 get to them).  Tickets for which I want to reserve responsibility
 will be marked `[Hands-off]`.  That said, all pull requests you can offer 
