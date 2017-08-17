@@ -4,8 +4,8 @@
 #define P2PPU_TILES 10 // Number of tiles you'll define in Resources.h
 #define P2PPU_PALETTES 2 // Number of palettes you'll define in Resources.h
 
-#define P2PPU_SPRITES 16 // Slots for sprites, can be 1..256.
-#define P2PPU_SPRITES_PER_SCAN 16 // Number of sprites allowed per scanline, 1..P2PPU_SPRITES.  consumes 128 bytes of RAM per.
+#define P2PPU_SPRITES 128 // Slots for sprites, can be 1..256.
+#define P2PPU_SPRITES_PER_SCAN 32 // Number of sprites allowed per scanline, 1..P2PPU_SPRITES.  consumes 128 bytes of RAM per.
 #define P2PPU_BG_WIDTH 32 // BG table size.  32x32 is 2 screens by 2 screens.  Could get away with 17x17 for scrolling.
 #define P2PPU_BG_HEIGHT 32
 
