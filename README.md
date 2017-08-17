@@ -12,6 +12,9 @@ get to them).  Tickets for which I want to reserve responsibility
 will be marked `[Hands-off]`.  That said, all pull requests you can offer 
 will be looked at immediately, regardless of the ticket's tag.
 
+This is being actively developed, but I do have a day job, so work may be slower 
+than I like.
+
 ## Motivation
 
 When I got my Pixel 2.0 in the mail, I was _super_ excited.  I was gonna totes
@@ -53,15 +56,32 @@ The NES did rendering on a per-scanline basis, which meant that it could skip
 a lot of the memory needs required of a full framebuffer.
 
 This library implements a similar scheme.  To make use of it, you need to first 
-set up Resources.h:
+set up PPUConfig.h and Resources.h:
 
-`tiles` should be an array of `P2PPU_TILES` `Tile` structures, where a `Tile` 
+`P2PPU_TILES` (PPUConfig.h) tells the PPU how many tiles you'll have in your table.
+
+`tiles` (Resources.h) should be an array of `P2PPU_TILES` `Tile` structures, where a `Tile` 
 is an 8x4 array of bytes, each byte representing a big-endian pixel pair.
 
-`palettes` should be an array of `P2PPU_PALETTES` `Palette` structures, where a
-`Palette` is a 16-element array of 16-bit words, representing rgb565 colors.
+`P2PPU_PALETTES` (PPUConfig.h) tells the PPU how many palettes you've got.
 
-There's a sample Resources.h in the repository; use that as your guide for 
+`palettes` (Resources.h) should be an array of `P2PPU_PALETTES` `Palette` structures, where a
+`Palette` is a 16-element array of 16-bit words, representing rgb565 colors.  Though, I'm finding 
+that if the low-order green bit is not set, the SSD1351 flickers.  Which is odd.
+
+`P2PPU_SPRITES` tells the PPU how many sprites you intend to have on-screen at a time.  
+More is slower.  Each sprite slot consumes 4 bytes.
+
+`P2PPU_SPRITES_PER_SCAN` tells it how many sprites you're allowed on the same scanline.  Each slot 
+consumes 128 bytes of RAM, so don't go crazy.  This should never be larger than `P2PPU_SPRITES`
+
+`P2PPU_BG_WIDTH` and `P2PPU_BG_HEIGHT` tells the PPU how much space to allocate for the 
+background layer.  Each tile slot consumes 2 bytes.
+
+`P2PPU_WIDTH` and `P2PPU_HEIGHT` tells the PPU the physical size of the screen.  This should 
+match whatever driver you're using.
+
+There's a sample PPUConfig.h / Resources.h in the repository; use that as your guide for 
 resource preparation.
 
 Once you have that ready, you can run the boring sample program, `PPUTest.ino`.  
@@ -72,4 +92,5 @@ Using the `ppu` local, you can place and palette background tiles and sprites,
 set the background's offset, etc.  Once your code is happy with its composition, 
 it can call ppu.render() to throw it at the screen.
 
+Remember, any issues / feature requests, please fill out an [issue](https://github.com/Fordi/P2PPU/issues), and I'll have a look!
 
