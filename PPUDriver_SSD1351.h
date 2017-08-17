@@ -71,15 +71,17 @@ class PPUDriver_SSD1351 : public PPUDriver {
  public:
   PPUDriver_SSD1351();
   void begin();
-  void reset(void);
 
-  void writeCommand(uint8_t c);
-  void writeData(uint8_t c);
   void startData();
-  void endData();
   virtual void transmit(uint16_t* data, uint16_t count);
+  void endData();
+  
   uint8_t getWidth();
   uint8_t getHeight();
+
+private: 
+  void writeCommand(uint8_t c);
+  void writeData(uint8_t c);
   
   PortReg *chip_select_port, *command_port;
   PortMask chip_select_mask, command_mask;
