@@ -48,11 +48,10 @@ void setup(void) {
   // 16x16 correlated sprite
   // 12
   // 34
-  ppu.setSprite(0, 0, 1);
-  ppu.setSprite(1, 1, 1);
-  ppu.setSprite(2, 2, 1);
-  ppu.setSprite(3, 3, 1);
-  
+  ppu.setSprite(0, 0, 1, 0, 0);
+  ppu.setSprite(1, 1, 1, 0, 1);
+  ppu.setSprite(2, 2, 1, 1, 0);
+  ppu.setSprite(3, 3, 1, 1, 1);
 }
 
 // Track the background

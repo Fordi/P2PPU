@@ -213,7 +213,7 @@ void P2PPU::setSpritePalette(uint8_t spriteIndex, uint8_t paletteIndex) {
   sprites[spriteIndex][0] = (sprites[spriteIndex][0] & 0xC3FF) | ((paletteIndex & 0xF) << 10);
 }
 void P2PPU::setSpriteOrientation(uint8_t spriteIndex, uint8_t flipX, uint8_t flipY) {
-  sprites[spriteIndex][1] = (sprites[spriteIndex][1] & 0x3FFF) | ((flipX & 1) << 15) | ((flipY & 1) << 14);
+  sprites[spriteIndex][0] = (sprites[spriteIndex][0] & 0x3FFF) | ((flipX & 1) << 15) | ((flipY & 1) << 14);
 }
 void P2PPU::setSpritePosition(uint8_t spriteIndex, uint8_t x, uint8_t y) {
   sprites[spriteIndex][1] = (x << 8) | y;
