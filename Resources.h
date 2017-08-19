@@ -6,7 +6,10 @@
 /**
  * Names are useful in avoiding these comments
  */
-const TileTable tiles = {
+#define P2PPU_TILES 10 // Number of tiles you'll define in Resources.h
+
+
+const uint32_t tiles[P2PPU_TILES][8] = {
   {/* tile 0, "1" */
     0x00440000,
     0x04445000,
@@ -109,7 +112,8 @@ const TileTable tiles = {
   }
 
 };
-const PaletteTable palettes = {
+#define P2PPU_PALETTES 2 // Number of palettes
+const uint16_t palettes[P2PPU_PALETTES][16] = {
     // Makes the numbers white with a dark blue shadow 
     {0x0,0x0,0x0,0x0,0xffff,0x9,0x0,0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0},
     // Makes the numbers red with a dark blue shadow

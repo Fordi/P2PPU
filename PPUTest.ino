@@ -10,35 +10,48 @@
 // Create an instance of the TFT driver
 PPUDriver_SSD1351 ppuDriver = PPUDriver_SSD1351();
 // Create an instance of the PPU
-P2PPU ppu = P2PPU(ppuDriver);
+P2PPU ppu = P2PPU(ppuDriver, &tiles[0][0], P2PPU_TILES, &palettes[0][0], P2PPU_PALETTES);
 
 void setup(void) {
   // Start the PPU (this will also start the driver and init the TFT)
   ppu.begin();
   // Set the global background color
   ppu.setBackgroundColor(0x0000);
-  
+
+
+  ppu.enableLayer(bg0);
+  ppu.enableLayer(bg1);
+  ppu.enableSprites();
+  ppu.enableLayer(fg);
   // Enable our sprites to go offscreen by putting the sprite layer's origin at -16, -16
   ppu.setSpriteOffset(16, 16);
 
   // Populate the background table with tiles
-  for (uint8_t y = 0; y < P2PPU_HEIGHT >> 2; y++) {
-    for (uint8_t x = 0; x < P2PPU_WIDTH >> 2; x++) {
+  for (uint8_t y = 0; y < P2PPU_HEIGHT >> 2; y+=3) {
+    for (uint8_t x = 0; x < P2PPU_WIDTH >> 2; x+=3) {
       uint16_t index = (y * P2PPU_WIDTH + x) % P2PPU_TILES;
-      ppu.setBackground(x, y, index, 0);
+      ppu.setBackground(bg0, x, y, index, 0);
+    }
+  }
+  for (uint8_t y = 0; y < P2PPU_HEIGHT >> 2; y+=5) {
+    for (uint8_t x = 0; x < P2PPU_WIDTH >> 2; x+=5) {
+      uint16_t index = (y * P2PPU_WIDTH + x) % P2PPU_TILES;
+      ppu.setBackground(bg1, x, y, index, 1);
+    }
+  }
+  for (uint8_t y = 0; y < P2PPU_HEIGHT >> 2; y+=4) {
+    for (uint8_t x = 0; x < P2PPU_WIDTH >> 2; x+=4) {
+      uint16_t index = (y * P2PPU_WIDTH + x) % P2PPU_TILES;
+      ppu.setBackground(fg, x, y, index, 0);
     }
   }
   // 16x16 correlated sprite
   // 12
   // 34
   ppu.setSprite(0, 0, 1);
-  ppu.setSpritePosition(0, 60, 60);
   ppu.setSprite(1, 1, 1);
-  ppu.setSpritePosition(0, 68, 60);
   ppu.setSprite(2, 2, 1);
-  ppu.setSpritePosition(0, 60, 68);
   ppu.setSprite(3, 3, 1);
-  ppu.setSpritePosition(0, 68, 68);
   
 }
 
@@ -56,7 +69,12 @@ int svX = -2;
 int svY = -1;
 
 void loop() {
-  //Scroll the background by moving its offset
+render();  
+  
+}
+
+void render() {
+    //Scroll the background by moving its offset
   bgX += vX;
   bgY += vY;
   if (bgX > 127 || bgX < 0) {
@@ -67,7 +85,9 @@ void loop() {
     vY = -vY;
     bgY += vY;
   }
-  ppu.setBackgroundOffset(bgX, bgY);
+  ppu.setBackgroundOffset(bg0, bgX, bgY);
+  ppu.setBackgroundOffset(bg1, 127-bgX, 127-bgY);
+  ppu.setBackgroundOffset(fg, bgY, bgX);
 
   // Move the sprite by shifting its position
   sprX += svX;
@@ -87,7 +107,6 @@ void loop() {
   
   // Finally, render the composition
   ppu.render();
-  
-}
 
+}
 
