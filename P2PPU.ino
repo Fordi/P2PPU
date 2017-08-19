@@ -1,16 +1,17 @@
-#include "P2PPU.h"
+#include <UcPPU.h>
+#include <UcPPUDriver.h>
 // Pixel 2.0 has a built-in SSD1351 tft, which, 
 // coincidentally, is the only driver written as yet.
-#include "PPUDriver_SSD1351.h"
+#include <UcPPU_SSD1351.h>
 
 // Our boring resource table with a small number font in it.
 #include "Resources.h"
 #include <SPI.h>
 
 // Create an instance of the TFT driver
-PPUDriver_SSD1351 ppuDriver = PPUDriver_SSD1351();
+UcPPU_SSD1351 ppuDriver = UcPPU_SSD1351();
 // Create an instance of the PPU
-P2PPU ppu = P2PPU(ppuDriver, &tiles[0][0], P2PPU_TILES, &palettes[0][0], P2PPU_PALETTES);
+UcPPU ppu = UcPPU(ppuDriver, &tiles[0][0], UCPPU_TILES, &palettes[0][0], UCPPU_PALETTES);
 
 void setup(void) {
   // Start the PPU (this will also start the driver and init the TFT)
@@ -27,21 +28,21 @@ void setup(void) {
   ppu.setSpriteOffset(16, 16);
 
   // Populate the background table with tiles
-  for (uint8_t y = 0; y < P2PPU_HEIGHT >> 2; y+=3) {
-    for (uint8_t x = 0; x < P2PPU_WIDTH >> 2; x+=3) {
-      uint16_t index = (y * P2PPU_WIDTH + x) % P2PPU_TILES;
+  for (uint8_t y = 0; y < UCPPU_HEIGHT >> 2; y+=3) {
+    for (uint8_t x = 0; x < UCPPU_WIDTH >> 2; x+=3) {
+      uint16_t index = (y * UCPPU_WIDTH + x) % UCPPU_TILES;
       ppu.setBackground(bg0, x, y, index, 0);
     }
   }
-  for (uint8_t y = 0; y < P2PPU_HEIGHT >> 2; y+=5) {
-    for (uint8_t x = 0; x < P2PPU_WIDTH >> 2; x+=5) {
-      uint16_t index = (y * P2PPU_WIDTH + x) % P2PPU_TILES;
+  for (uint8_t y = 0; y < UCPPU_HEIGHT >> 2; y+=5) {
+    for (uint8_t x = 0; x < UCPPU_WIDTH >> 2; x+=5) {
+      uint16_t index = (y * UCPPU_WIDTH + x) % UCPPU_TILES;
       ppu.setBackground(bg1, x, y, index, 1);
     }
   }
-  for (uint8_t y = 0; y < P2PPU_HEIGHT >> 2; y+=4) {
-    for (uint8_t x = 0; x < P2PPU_WIDTH >> 2; x+=4) {
-      uint16_t index = (y * P2PPU_WIDTH + x) % P2PPU_TILES;
+  for (uint8_t y = 0; y < UCPPU_HEIGHT >> 2; y+=4) {
+    for (uint8_t x = 0; x < UCPPU_WIDTH >> 2; x+=4) {
+      uint16_t index = (y * UCPPU_WIDTH + x) % UCPPU_TILES;
       ppu.setBackground(fg, x, y, index, 0);
     }
   }
