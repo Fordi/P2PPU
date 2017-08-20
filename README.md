@@ -8,7 +8,7 @@ Please see the documentation for [μC PPU](https://github.com/Fordi/UcPPU).
 
 # Building
 
-First, check μC PPU and its SSD1351 driver out into your Arduino personal libraries
+First, check μC PPU and its [SSD1351](https://github.com/Fordi/UcPPU_SSD1351) driver out into your Arduino personal libraries
 folder.  On linux / OS-X:
 
     cd ~/Arduino/libraries
