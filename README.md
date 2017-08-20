@@ -6,6 +6,10 @@ layer, two masked background layers, and a sprite layer to a Pixel 2.0.
 
 Please see the documentation for [μC PPU](https://github.com/Fordi/UcPPU).
 
+# Demo
+
+For the impatient, there's a [video](https://youtu.be/1ZhZSGqO0Ak) of this demo code in action.
+
 # Building
 
 First, check μC PPU and its [SSD1351](https://github.com/Fordi/UcPPU_SSD1351) driver out into your Arduino personal libraries
