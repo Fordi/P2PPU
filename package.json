@@ -1,0 +1,8 @@
+{
+  "main": "compile-assets.js",
+  "dependencies": {
+    "pngjs": "^3.3.0"
+  },
+  "devDependencies": {},
+  "author": "Bryan Elliott <fordiman@gmail.com>"
+}

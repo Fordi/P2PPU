@@ -32,19 +32,19 @@ void setup(void) {
   for (uint8_t y = 0; y < height >> 2; y+=3) {
     for (uint8_t x = 0; x < width >> 2; x+=3) {
       uint16_t index = (y * width + x) % UCPPU_TILES;
-      ppu.setBackground(bg0, x, y, index, 0);
+      ppu.setBackground(bg0, x, y, index, index < 10 ? 0 : 2);
     }
   }
   for (uint8_t y = 0; y < height >> 2; y+=5) {
     for (uint8_t x = 0; x < width >> 2; x+=5) {
       uint16_t index = (y * width + x) % UCPPU_TILES;
-      ppu.setBackground(bg1, x, y, index, 1);
+      ppu.setBackground(bg1, x, y, index, index < 10 ? 1 : 2);
     }
   }
   for (uint8_t y = 0; y < height >> 2; y+=4) {
     for (uint8_t x = 0; x < width >> 2; x+=4) {
       uint16_t index = (y * width + x) % UCPPU_TILES;
-      ppu.setBackground(fg, x, y, index, 0);
+      ppu.setBackground(fg, x, y, index, index < 10 ? 0 : 2);
     }
   }
   // 16x16 correlated sprite
@@ -126,7 +126,7 @@ void writeFrameTime() {
   uint32_t t = us / (frames * 1000);
   for (uint8_t i = 0; i < 5; i++) {
     // 0123456789 -> 1234567890, since that's how our tiles are laid out.
-    uint8_t d = (t + 9) % 10;
+    uint8_t d = (t) % 10;
     t = t / 10;
     ppu.setSpriteTile(8 - i, d);
   }
