@@ -112,6 +112,8 @@ void render() {
     svY = -svY;
     sprY+=svY;
   }
+  
+  // Correlated sprite movement!
   ppu.setSpritePosition(0, 3, 2, sprX, sprY);
   
   // Finally, render the composition
