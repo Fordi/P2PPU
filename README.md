@@ -26,3 +26,20 @@ On Windows:
     git clone https://github.com/Fordi/UcPPU_DisplayDrivers
 
 Then, load up this repository as a sketch in Arduino, and upload it.
+
+# Resources
+
+To swap out the built-in resources for your own, there is a resource preparation 
+Node script in this repository.  To run it, first check out its dependencies:
+
+    npm install
+
+Then, you can run it on any PNG file (or file list) with a 16-color palette:
+
+    node ./compile-assets sheet.png
+
+The following flags are supported:
+
+    * -t name of tile table
+    * -p name of palette table
+    * -h filename for output header file

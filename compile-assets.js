@@ -49,7 +49,11 @@ function usage(message) {
     if (message) {
         out.push(message);
     }
-    out.push("Usage: " + process.argv[1] + " [-t tileTableName] [-p paletteTableName] [outputHeader.h] <inputPNG> <inputPNG> <inputPNG> ...");
+    out.push("Usage: " + process.argv[1].replace(/^.*\//, '') + " [-t ...] [-p ...] [-h ...] [-c ...] <inputPNGList>");
+    out.push("     -t tileTableName     Name used for the `tiles` table");
+    out.push("     -p paletteTableName  Name used for the `palettes` table");
+    out.push("     -h headerFileName    Name of the header file ('include `.h`, please)");
+    out.push("     -c constantPrefix    Prefix for the length constants (e.g., UCPPU_)");
     throw new Error(out.join('\n'));
 }
 
