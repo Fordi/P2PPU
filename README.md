@@ -36,10 +36,11 @@ Node script in this repository.  To run it, first check out its dependencies:
 
 Then, you can run it on any PNG file (or file list) with a 16-color palette:
 
-    node ./compile-assets sheet.png
+    node ./compile-assets numbers.png sheet.png
 
 The following flags are supported:
 
-    * -t name of tile table
-    * -p name of palette table
-    * -h filename for output header file
+    * -t name of tile table, default: `tiles`
+    * -p name of palette table, default: `palettes`
+    * -h filename for output header file, default: `Resources.h`
+    * -c prefix for the `TILES` and `PALETTES` constants, default: `UCPPU_`
