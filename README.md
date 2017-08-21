@@ -12,17 +12,17 @@ For the impatient, there's a [video](https://youtu.be/1ZhZSGqO0Ak) of this demo 
 
 # Building
 
-First, check μC PPU and its [SSD1351](https://github.com/Fordi/UcPPU_SSD1351) driver out into your Arduino personal libraries
+First, check μC PPU and its [display drivers](https://github.com/Fordi/UcPPU_DisplayDrivers) out into your Arduino personal libraries
 folder.  On linux / OS-X:
 
     cd ~/Arduino/libraries
     git clone https://github.com/Fordi/UcPPU
-    git clone https://github.com/Fordi/UcPPU_SSD1351
+    git clone https://github.com/Fordi/UcPPU_DisplayDrivers
 
 On Windows:
 
     cd "%USERPROFILE%\My Documents"
     git clone https://github.com/Fordi/UcPPU
-    git clone https://github.com/Fordi/UcPPU_SSD1351
+    git clone https://github.com/Fordi/UcPPU_DisplayDrivers
 
 Then, load up this repository as a sketch in Arduino, and upload it.
